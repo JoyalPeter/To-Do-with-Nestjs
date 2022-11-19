@@ -10,6 +10,7 @@ export default function Additem() {
   const { setItems } = useContext(UserContext);
   const [inputs, setInput] = useState("");
   const userID = params.id;
+  
   async function add() {
     if (inputs) {
       const response = await fetch("/todo/add", {

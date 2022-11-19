@@ -12,11 +12,11 @@ export class TodoUsersService {
     @InjectRepository(TodoUser)
     private userRepo: Repository<TodoUser>,
     @InjectRepository(TodoItem)
-    private itemRepo: Repository<TodoItem>
-  ){}
+    private itemRepo: Repository<TodoItem>,
+  ) {}
 
   async create(createTodoUserDto: CreateTodoUserDto) {
-    const user=this.userRepo.create(createTodoUserDto)
+    const user = this.userRepo.create(createTodoUserDto);
     await this.userRepo.save(user);
     return user.id;
   }
@@ -26,11 +26,14 @@ export class TodoUsersService {
   }
 
   findOne(userId: number) {
-    return this.userRepo.findOne({where: {id:userId},relations:["items"]});
+    return this.userRepo.findOne({
+      where: { id: userId },
+      relations: ['items'],
+    });
   }
   async findOneUser(username: string) {
-    const user= await this.userRepo.findOne({where: {userName:username}});
-    if(user) return user.id;
+    const user = await this.userRepo.findOne({ where: { userName: username } });
+    if (user) return user.id;
     return 0;
   }
 
@@ -39,23 +42,27 @@ export class TodoUsersService {
   }
 
   async remove(id: number) {
-    const user= await this.userRepo.findOne({where: {id:id},relations:["items"]});
-    console.log(user.items)
-    user.items.forEach(e=>(
-      this.itemRepo.delete(e.id)
-    ))
+    const user = await this.userRepo.findOne({
+      where: { id: id },
+      relations: ['items'],
+    });
+    console.log(user.items);
+    user.items.forEach((e) => this.itemRepo.delete(e.id));
     await this.userRepo.delete(id);
   }
-  async findUser(createTodoUserdto:CreateTodoUserDto){
-    const user= await this.userRepo.findOne({where:{userName:createTodoUserdto.userName},relations:["items"]})
-    if(user){
-      if(user.password===createTodoUserdto.password){
-        return {items:user.items,id:user.id};
-      }else{
-        return {flag:-1};
-      }
-    }else{
-      return {flag:0};
+  async findUser(createTodoUserdto: CreateTodoUserDto) {
+    const user = await this.userRepo.findOne({
+      where: { userName: createTodoUserdto.userName },
+      relations: ['items'],
+    });
+    if (user) {
+      return {
+        items: user.items,
+        id: user.id,
+        password: user.password,
+        flag: 1,
+      };
     }
+    return { flag: 0 };
   }
 }

@@ -12,6 +12,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./SignUp.module.css";
+import bcrypt from "bcryptjs";
 
 const theme = createTheme();
 
@@ -26,6 +27,7 @@ export default function SignUp() {
     let username = data.get("userName");
     let password = data.get("password");
     if (username && password) {
+      const hashed = await bcrypt.hashSync(password);
       const response = await fetch(`/todo-users/getUser/${username}`);
       const data = await response.json();
       if (data) {
@@ -36,10 +38,10 @@ export default function SignUp() {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             userName: username,
-            password: password,
+            password: hashed,
           }),
         });
-        const id=await res.json()
+        const id = await res.json();
         localStorage.setItem("LoginToken", true);
         navigate(`/AddItem/${username}/${id}`);
       }

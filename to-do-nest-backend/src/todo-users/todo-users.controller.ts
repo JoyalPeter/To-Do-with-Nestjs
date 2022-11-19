@@ -17,11 +17,6 @@ export class TodoUsersController {
     return await this.todoUsersService.findUser(createTodoUserdto);
   }
 
-  // @Get()
-  // findAll() {
-  //   return this.todoUsersService.findAll();
-  // }
-
   @Get('getUser/:username')//specific user
   findOne(@Param('username') username: string) {
     return this.todoUsersService.findOneUser(username);

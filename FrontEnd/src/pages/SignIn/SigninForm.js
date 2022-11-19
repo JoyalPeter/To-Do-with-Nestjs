@@ -1,16 +1,15 @@
+import bcrypt from "bcryptjs";
 import TextField from "@mui/material/TextField";
 import { Button } from "@mui/material";
 import styles from "./SigninForm.module.css";
 import { useNavigate } from "react-router-dom";
-import { useState,useContext } from "react";
+import { useState, useContext } from "react";
 import { UserContext } from "../../App";
 
 function SigninForm() {
-  
   localStorage.setItem("LoginToken", false);
   const navigate = useNavigate();
   const { setItems } = useContext(UserContext);
-  const { items } = useContext(UserContext);
   const [UserName, getUserName] = useState("");
   const [PassWord, getPassWord] = useState("");
   const [UserNameFlag, setuserNameFlag] = useState(false);
@@ -23,18 +22,21 @@ function SigninForm() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           userName: UserName,
-          password: PassWord,
         }),
       });
       const data = await response.json();
-      setItems(data.items)
-      if (data.flag === -1) {
-        setPassWordFlag(true);
-      } else if (data.flag === 0) {
+      setItems(data.items);
+      if (data.flag === 0) {
         setuserNameFlag(true);
       } else {
-        localStorage.setItem("LoginToken", true);
-        navigate(`/AddItem/${UserName}/${data.id}`);
+        bcrypt.compare(PassWord, data.password, function (err,isMatch) {
+          if (!isMatch) {
+            setPassWordFlag(true);
+          } else {
+            localStorage.setItem("LoginToken", true);
+            navigate(`/AddItem/${UserName}/${data.id}`);
+          }
+        });
       }
     } else {
       alert("Username and Password cannot be empty!");

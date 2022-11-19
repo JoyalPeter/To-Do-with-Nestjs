@@ -1,0 +1,38 @@
+.signin
+{
+    background-color: antiquewhite;
+    margin: 0 auto;
+    padding: 5%;
+    width:fit-content;
+    margin-top: 10%;
+    border-radius: 2%;
+    border: 2px black solid;
+}
+
+.name
+{
+    margin: 5%;
+}
+
+.pwd
+{
+    margin: 5%;
+}
+.role{
+    margin: 5%;
+}
+.bttn{
+    margin: 10px;
+}
+.username{
+    color: red;
+    margin: 10px;
+
+}
+.passwrd{
+    color: red;
+    margin: 10px;
+}
+.SignUpLink{
+    margin: 10px;
+}

@@ -1,0 +1,26 @@
+.bt{
+    outline: none;
+    background: red;
+    color: #fff;
+    /* font-size: 22px; */
+    border-radius: 5px;
+    text-align: center;
+    box-shadow: 0 6px 20px -5px rgba(0,0,0,0.4);
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    margin: 10px;
+}
+.dispDiv{
+    outline: 2px;
+    outline-color: black;
+    outline-style: double;
+    margin: 10px;
+    padding: 10px;
+    align-items: center;
+}
+.dispLine{
+    font-size: x-large;
+    margin: 5px 5px 5px 5px;
+    padding: 2px;
+}

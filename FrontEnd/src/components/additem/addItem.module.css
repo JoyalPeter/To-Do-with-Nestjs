@@ -1,0 +1,29 @@
+.submitbutton{
+    outline: none;
+    background: blue;
+    color: #fff;
+    border-radius: 5px;
+    text-align: center;
+    box-shadow: 0 6px 20px -5px rgba(0,0,0,0.4);
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    margin: 10px;
+}
+.Logout{
+    display: inline-block;
+    position: fixed;
+    right: 2%;
+    top:1%;
+    cursor:pointer;
+    border: double;
+    border-radius: 5px;
+}
+.UserName{
+    font-size: x-large;
+}
+.delAccnt{
+    position: fixed;
+    top: 5%;
+    right: 2%;
+}

@@ -1,0 +1,21 @@
+.Box{
+    margin: auto;
+}
+.Oops{
+    color:red;
+    text-align: center;
+}
+.Text1{
+    text-align: center;
+}
+.Text2{
+    text-align: center;
+}
+.Link{
+    display: inline-block;
+    text-align: center;
+    margin-left: 5px;
+    color: blue;
+    text-decoration: underline;
+
+}

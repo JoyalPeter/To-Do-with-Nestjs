@@ -9,7 +9,7 @@ export class TodoUsersController {
 
   @Post('addUser')
   async create(@Body() createTodoUserDto: CreateTodoUserDto) {
-    await this.todoUsersService.create(createTodoUserDto);
+    return await this.todoUsersService.create(createTodoUserDto);
   }
 
   @Post('verifyUser')
@@ -33,7 +33,7 @@ export class TodoUsersController {
   }
 
   @Delete('deleteUser')
-  remove(@Body('id') id: string) {
-    return this.todoUsersService.remove(+id);
+  async remove(@Body('id') id: number) {
+    await this.todoUsersService.remove(id);
   }
 }

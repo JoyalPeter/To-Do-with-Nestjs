@@ -27,11 +27,11 @@ export default function SignUp() {
     let password = data.get("password");
     if (username && password) {
       const response = await fetch(`/todo-users/getUser/${username}`);
-      const data = await response.json()
+      const data = await response.json();
       if (data) {
         setNameFlag(true);
       } else {
-        fetch("/todo-users/addUser", {
+        const res = await fetch("/todo-users/addUser", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
@@ -39,8 +39,9 @@ export default function SignUp() {
             password: password,
           }),
         });
+        const id=await res.json()
         localStorage.setItem("LoginToken", true);
-        navigate(`/AddItem/${username}/${data}`);
+        navigate(`/AddItem/${username}/${id}`);
       }
     } else {
       alert("Username and Password cannot be empty!");

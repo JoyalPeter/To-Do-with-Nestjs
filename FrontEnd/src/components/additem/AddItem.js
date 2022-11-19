@@ -18,7 +18,7 @@ export default function Additem() {
         body: JSON.stringify({ item: inputs, user: userID }),
       });
       const data = await response.json();
-      
+
       setItems(data.items);
     } else alert("Input Field Empty");
   }
@@ -28,11 +28,15 @@ export default function Additem() {
     navigate("/");
   }
 
-  function deleteAccount() {
+  async function deleteAccount() {
     if (window.confirm("Do you want delete your account? ")) {
       localStorage.setItem("LoginToken", false);
-      localStorage.removeItem(params.User);
       navigate("/");
+      await fetch("/todo-users/deleteUser", {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id: userID }),
+      });
     }
   }
 
@@ -44,9 +48,9 @@ export default function Additem() {
           <div onClick={logout} className={styles.Logout}>
             Logout
           </div>
-          {/* <a onClick={deleteAccount} href="" className={styles.delAccnt}>
+          <a onClick={deleteAccount} href="" className={styles.delAccnt}>
             De-activate Account
-          </a> */}
+          </a>
         </div>
         <div>
           Add New Item <input onChange={(e) => setInput(e.target.value)} />
